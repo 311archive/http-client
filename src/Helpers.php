@@ -137,4 +137,24 @@ class Helpers
 
         return $newArray;
     }
+
+    public static function fillLowerLevelDates($arrays)
+    {
+        // 1. find earliest
+        foreach ($arrays as $array) {
+            $potentialFirsts[] = array_key_first($array);
+            $potentialLasts[] = array_key_last($array);
+        }
+        sort($potentialFirsts);
+        sort($potentialLasts);
+        $start = reset($potentialFirsts);
+        $end = end($potentialLasts);
+        $foo = 21;
+
+        // 3. call existing fil dates function on each
+        foreach ($arrays as $array) {
+            // Fill them in!
+        }
+    }
+
 }

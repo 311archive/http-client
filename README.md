@@ -3,6 +3,8 @@ PHP client to aid in fetching and processing Boston 311 reports from [Boston 311
 
 ## Example usage
 
+See the `example-scripts` folder for examples.
+
 ### Create a CSV of the number of 311 Reports about fireworks per day over the last few years.
 1. Clone this repo or include it in your PHP project.
 2. Instantiate a new Client:
@@ -59,8 +61,10 @@ Name | Description | Parameters | Returns
 `csv` | Writes an array of arrays to a CSV file. | `@param string[] $headers`, `@param array[] $data`, `@param string $filename`, `@param string $path` | 
 `fillMissingDateArrayKeys` | Given an array keyed by dates, returns an array with any missing date keys filled. | `@param array $array` | array
 `arrayValuesToCounts` | Given an array of arrays, returns the count of each second level array while preserving top-level array keys. | `@param array $array | array
+`fillLowerLevelDates` | Given an array of arrays keyed by dates, fills each of the arrays with any missing date keys and values based on the earliest start and latest end of all the arrays. | @param array[] $array | array[]
+`flattenMultitermDateCount` | Given an array of arrays keyed by date (with identical numbers of items in each array and the same start and enddate), flattens the array into `[date, val1, val2, ...]`. | @param array[] $arrays | array[]
 
 ## About
-[Boston 311 Archive](https://311.report) is a volunteer project to create a searchable arechive of Boston 311 reports. See [Boston 311 Archive: About](https://311.report/about) for more information.
+[Boston 311 Archive](https://311.report) is a volunteer project to create a searchable archive of Boston 311 reports. See [Boston 311 Archive: About](https://311.report/about) for more information.
 
 Boston 311 Archive also provides an easily discoverable read-only API that conforms to the JSON:API standard. You can browse the API directly at https://311.report/jsonapi.

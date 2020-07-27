@@ -152,8 +152,7 @@ class Client implements ClientInterface
                     'value' => reset($terms),
                 ]
             ];
-        }
-        else {
+        } else {
             $this->filters['filter']['descriptionGroup']['group']['conjunction'] = 'OR';
 
             $n = 1;

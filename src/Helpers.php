@@ -88,6 +88,9 @@ class Helpers
      */
     public static function fillMissingDateArrayKeys(array $array)
     {
+        if (empty($array)) {
+            return [];
+        }
         $formatLength = strlen(array_key_first($array));
 
         switch ($formatLength) {
@@ -138,23 +141,65 @@ class Helpers
         return $newArray;
     }
 
+    /**
+     * Given an array of arrays keyed by dates, fills each of the arrays with any missing date keys and values based on
+     * the earliest start and latest end of all the arrays.
+     *
+     * @param array[] $arrays
+     * @return array[]
+     */
     public static function fillLowerLevelDates($arrays)
     {
-        // 1. find earliest
-        foreach ($arrays as $array) {
+        // 1. Find earliest and latest dates in all the arrays.
+        foreach ($arrays as $key => $array) {
             $potentialFirsts[] = array_key_first($array);
             $potentialLasts[] = array_key_last($array);
+
+            $keys[] = $key;
         }
         sort($potentialFirsts);
         sort($potentialLasts);
         $start = reset($potentialFirsts);
         $end = end($potentialLasts);
-        $foo = 21;
 
-        // 3. call existing fil dates function on each
+        $i = 0;
+        $newArray = [];
         foreach ($arrays as $array) {
-            // Fill them in!
+            // 2. Plug first and last if not already set.
+            if (!array_key_exists($start, $array)) {
+                $array = [$start => 0] + $array;
+            }
+            if (!array_key_exists($end, $array)) {
+                $array[$end] = 0;
+            }
+
+            // 3. Fill in the gaps.
+            $array = self::fillMissingDateArrayKeys($array);
+
+            $newArray[$keys[$i]] = $array;
+
+            $i++;
         }
+
+        return $newArray;
     }
 
+    /**
+     * Given an array of arrays keyed by date (with identical numbers of items in each array and the same start and end
+     * date), flattens the array into [date, val1, val2, ...].
+     * @param array[] $arrays
+     * @return array[]
+     */
+    public static function flattenMultitermDateCount(array $arrays)
+    {
+        $newArray = [];
+        foreach ($arrays as $array) {
+            foreach ($array as $date => $value) {
+                $newArray[$date][] = $value;
+            }
+        }
+        $newArray = self::includeArrayKeysInArray($newArray);
+
+        return $newArray;
+    }
 }

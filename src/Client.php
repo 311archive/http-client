@@ -143,19 +143,30 @@ class Client implements ClientInterface
      */
     public function filterDescription(array $terms)
     {
-        $this->filters['filter']['descriptionGroup']['group']['conjunction'] = 'OR';
-
-        $n = 1;
-        foreach ($terms as $term) {
-            $this->filters['filter']['descriptionContains' . $n] = [
+        if (count($terms) === 1) {
+            // We can do a more efficient query if there is only one term
+            $this->filters['filter']['descriptionContains'] = [
                 'condition' => [
                     'path' => 'field_description',
                     'operator' => 'CONTAINS',
-                    'value' => $term,
-                    'memberOf' => 'descriptionGroup',
+                    'value' => reset($terms),
                 ]
             ];
-            $n++;
+        } else {
+            $this->filters['filter']['descriptionGroup']['group']['conjunction'] = 'OR';
+
+            $n = 1;
+            foreach ($terms as $term) {
+                $this->filters['filter']['descriptionContains' . $n] = [
+                    'condition' => [
+                        'path' => 'field_description',
+                        'operator' => 'CONTAINS',
+                        'value' => $term,
+                        'memberOf' => 'descriptionGroup',
+                    ]
+                ];
+                $n++;
+            }
         }
     }
 

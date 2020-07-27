@@ -80,4 +80,25 @@ class HelpersTest extends TestCase
         $this->assertEquals(count($expectedFilledArray), count($filledArray));
         $this->assertEquals($expectedFilledArray, $filledArray);
     }
+
+    public function testFillLowerLevelDates()
+    {
+        $array = [
+            'foo' => [
+                '2020-01-01' => 1,
+                '2020-02-01' => 2,
+            ],
+            'bar' => [
+                '2020-01-14' => 3,
+                '2020-03-01' => 4,
+            ],
+            'baz' => [
+                '2020-01-10' => 5,
+                '2020-02-10' => 6,
+            ],
+        ];
+
+        $newArray = Helpers::fillLowerLevelDates($array);
+        $foo = 21;
+    }
 }

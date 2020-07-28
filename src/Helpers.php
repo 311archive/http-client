@@ -108,7 +108,7 @@ class Helpers
                 break;
             default:
                 throw new \InvalidArgumentException(
-                    'The keys must be dates in one of the following formats: `Y`, `Y-m`, or `Y-m-d`'
+                    'The keys must be dates in one of the following formats: `Y`, `Y-m`, or `Y-m-d`. `' . array_key_first($array) . '` was provided.'
                 );
         }
 
@@ -202,4 +202,34 @@ class Helpers
 
         return $newArray;
     }
+
+    public static function getNeighborhoods() {
+        return [
+            'Allston',
+            'Back Bay',
+            'Bay Village',
+            'Beacon Hill',
+            'Brighton',
+            'Charlestown',
+            'Chinatown',
+            'Leather District',
+            'Dorchester',
+            'Downtown',
+            'East Boston',
+            'Fenway',
+            'Kenmore',
+            'Hyde Park',
+            'Jamaica Plain',
+            'Mattapan',
+            'Mission Hill',
+            'North End',
+            'Roslindale',
+            'Roxbury',
+            'South Boston',
+            'South End',
+            'West End',
+            'West Roxbury',
+        ];
+    }
+
 }

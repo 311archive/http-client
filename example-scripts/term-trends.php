@@ -57,5 +57,3 @@ array_unshift($terms, 'date');
 
 // Write the data to a CSV file.
 Helpers::csv($terms, $termsCounts, 'term-counts.csv');
-
-$foo = 21;

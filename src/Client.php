@@ -84,7 +84,7 @@ class Client implements ClientInterface
             $groupedReports = [];
             foreach ($this->reports as $report) {
                 $groupedReports[
-                date($this->mapGroupByToDatFormat(), strtotime($report['attributes']['field_requested_timestamp']))
+                date($this->mapGroupByToDateFormat(), strtotime($report['attributes']['field_requested_timestamp']))
                 ][] = $report;
             }
             ksort($groupedReports);
@@ -252,10 +252,10 @@ class Client implements ClientInterface
 
     public function groupResultsByYear()
     {
-        // TODO: Implement groupResultsByYear() method.
+        $this->groupBy = 'year';
     }
 
-    private function mapGroupByToDatFormat()
+    private function mapGroupByToDateFormat()
     {
         switch ($this->groupBy) {
             case 'day':

@@ -25,7 +25,7 @@ interface ClientInterface
     /**
      * Gets specific fields from the fetched Reports.
      *
-     * @param string[] $fields
+     * @param  string[] $fields
      *   An array of field names to get.
      * @return array
      */
@@ -35,7 +35,7 @@ interface ClientInterface
      * Limit the number of records returned per request. Note that this does not limit the total number of records
      * returned. It just splits them up over more pages/requests.
      *
-     * @param int $limit
+     * @param  int $limit
      * @return $this
      */
     public function setLimit(int $limit);
@@ -43,7 +43,7 @@ interface ClientInterface
     /**
      * Limits the number of requests/pages, even if there are more results to be fetched.
      *
-     * @param $numberOfRequests
+     * @param  $numberOfRequests
      * @return $this
      */
     public function limitRequests($numberOfRequests);
@@ -51,7 +51,7 @@ interface ClientInterface
     /**
      * Offset the start of the records returned by a given number.
      *
-     * @param int $offset
+     * @param  int $offset
      * @return $this
      */
     public function setOffset(int $offset);
@@ -59,7 +59,7 @@ interface ClientInterface
     /**
      * Filters reports that come before the provided "after" date.
      *
-     * @param string $afterDate
+     * @param  string $afterDate
      *   Any readable PHP date format.
      * @return $this;
      */
@@ -68,7 +68,7 @@ interface ClientInterface
     /**
      * Filters reports that come after the provided "before" date.
      *
-     * @param string $beforeDate
+     * @param  string $beforeDate
      *   Any readable PHP date format.
      * @return $this;
      */
@@ -77,7 +77,7 @@ interface ClientInterface
     /**
      * Filters reports to only include reports in the given category.
      *
-     * @param $category
+     * @param  $category
      * @return $this
      */
     public function filterCategory($category);
@@ -85,7 +85,7 @@ interface ClientInterface
     /**
      * Filters reports to only include reports from the given neighborhood.
      *
-     * @param string $neighborhood
+     * @param  string $neighborhood
      * @return $this
      */
     public function filterNeighborhood(string $neighborhood);
@@ -93,7 +93,7 @@ interface ClientInterface
     /**
      * An array of strings of which at least one must be present in the Description field.
      *
-     * @param string[] $terms
+     * @param  string[] $terms
      * @return $this
      */
     public function filterDescription(array $terms);
@@ -103,7 +103,7 @@ interface ClientInterface
      * the city when a report is closed. It is generally empty for open reports. As such, using this will only return
      * closed reports.
      *
-     * @param string[] $terms
+     * @param  string[] $terms
      * @return $this
      */
     public function filterStatusNotes(array $terms);
@@ -112,7 +112,7 @@ interface ClientInterface
      * Filter on whether the report is open or not. True for open, False for closed. Do not use this method to return
      * all.
      *
-     * @param bool $status
+     * @param  bool $status
      * @return $this
      */
     public function filterStatusOpen($status);

@@ -4,6 +4,9 @@
 /**
  * Example script to count the number of reports per neighborhood that complain about parking and write the data to a
  * CSV file.
+ *
+ * @See the collected data and visualizations here;
+ * https://docs.google.com/spreadsheets/d/1QC-FOvrRgGRkb-_wrWM_s8x3zTKG_q1eR0M2aZTCACk/edit#gid=1770142492
  */
 
 require_once 'vendor/autoload.php';
@@ -20,7 +23,7 @@ foreach ($neighborhoods as $neighborhood) {
 
     $client->filterNeighborhood($neighborhood);
     $client->filterCategory('illegal parking');
-    $client->dateFilterAfterDate('December 2014');
+    $client->dateFilterAfterDate('July 2020');
     $client->groupResultsByMonth();
 
     $client->fetchReports();
@@ -43,4 +46,4 @@ $counts = Helpers::flattenMultitermDateCount($counts);
 
 array_unshift($headers, 'date');
 
-Helpers::csv($headers, $counts, 'parking-complaints-by-neighborhood');
+Helpers::csv($headers, $counts, 'parking-complaints-by-neighborhood--july2020-only.csv');

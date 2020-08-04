@@ -1,5 +1,5 @@
 {
-    "name": "311archive/php-client",
+    "name": "311archive/http-client",
     "description": "PHP client for the 311.report API.",
     "type": "library",
     "require": {

@@ -1,4 +1,4 @@
-# Boston 311 PHP Client
+# Boston 311 PHP HTTP Client
 PHP client to aid in fetching and processing Boston 311 reports from [Boston 311 Archive](https://311.report) API.
 
 ## Example usage

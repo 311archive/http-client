@@ -86,20 +86,23 @@ class HelpersTest extends TestCase
         $array = [
             'foo' => [
                 '2020-01-01' => 1,
-                '2020-02-01' => 2,
+                '2020-01-02' => 2,
             ],
             'bar' => [
-                '2020-01-14' => 3,
-                '2020-03-01' => 4,
+                '2020-01-02' => 3,
+                '2020-01-03' => 4,
             ],
             'baz' => [
-                '2020-01-10' => 5,
-                '2020-02-10' => 6,
+                '2020-01-03' => 5,
+                '2020-01-04' => 6,
             ],
         ];
 
         $newArray = Helpers::fillLowerLevelDates($array);
-        $foo = 21;
+
+        foreach ($newArray as $values) {
+            $this->assertCount(4, $values);
+        }
     }
 
     public function testCSV() {

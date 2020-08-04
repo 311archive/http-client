@@ -199,7 +199,8 @@ class Client implements ClientInterface
 
     /**
      * Parses a date string into a timestamp.
-     * @param $date
+     *
+     * @param  $date
      * @return false|int
      */
     private function normalizeDateFormat($date)

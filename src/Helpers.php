@@ -8,7 +8,7 @@ class Helpers
     /**
      * For a typical array of `[$date => $value]`'s, converts it into a CSV of the given name.
      *
-     * @param array $array
+     * @param array  $array
      * @param string $filename
      */
     public static function convertDateValArrayToCsv(array $array, string $filename)
@@ -22,6 +22,7 @@ class Helpers
 
     /**
      * Shifts each top level key of an array of arrays into the row's contained array while preserving top-level keys.
+     *
      * @example
      *   Given
      *     [
@@ -34,7 +35,7 @@ class Helpers
      *       'b' => ['b', 'bar'],
      *     ]
      *
-     * @param array[] | string[] $array
+     * @param  array[] | string[] $array
      * @return array[]
      */
     public static function includeArrayKeysInArray(array $array)
@@ -92,7 +93,7 @@ class Helpers
     /**
      * Given an array keyed by dates, returns an array with any missing date keys filled.
      *
-     * @param array $array
+     * @param  array $array
      * @return array $array
      */
     public static function fillMissingDateArrayKeys(array $array)
@@ -137,7 +138,7 @@ class Helpers
     /**
      * Given an array of arrays, returns the count of each second level array while preserving top-level array keys.
      *
-     * @param array[] $array
+     * @param  array[] $array
      * @return array[]
      */
     public static function arrayValuesToCounts($array)
@@ -154,7 +155,7 @@ class Helpers
      * Given an array of arrays keyed by dates, fills each of the arrays with any missing date keys and values based on
      * the earliest start and latest end of all the arrays.
      *
-     * @param array[] $arrays
+     * @param  array[] $arrays
      * @return array[]
      */
     public static function fillLowerLevelDates($arrays)
@@ -196,7 +197,8 @@ class Helpers
     /**
      * Given an array of arrays keyed by date (with identical numbers of items in each array and the same start and end
      * date), flattens the array into [date, val1, val2, ...].
-     * @param array[] $arrays
+     *
+     * @param  array[] $arrays
      * @return array[]
      */
     public static function flattenMultitermDateCount(array $arrays)

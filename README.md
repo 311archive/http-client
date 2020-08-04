@@ -57,8 +57,8 @@ Name | Description | Parameters | Returns
 Name | Description | Parameters | Returns
 -----|-------------|------------|--------
 `convertDateValArrayToCsv` | For a typical array of `[$date => $value]`'s, converts it into a CSV of the given name. | `@param array $array` | array
-`includeArrayKeysInArray` | Shifts each top level key of an array of arrays into the row's contained array while preserving tol-level keys. | `@param array[] | string[] $array` | `array[]`
-`csv` | Writes an array of arrays to a CSV file. | `@param string[] $headers`, `@param array[] $data`, `@param string $filename`, `@param string $path` | 
+`includeArrayKeysInArray` | Shifts each top level key of an array of arrays into the row's contained array while preserving top-level keys. | `@param array[]` | array[]
+`csv` | Writes an array of arrays to a CSV file. | `@param string[] $headers`, `@param array[] $data`, `@param string $filename`, `@param bool $append`, `@param string $path` | void
 `fillMissingDateArrayKeys` | Given an array keyed by dates, returns an array with any missing date keys filled. | `@param array $array` | array
 `arrayValuesToCounts` | Given an array of arrays, returns the count of each second level array while preserving top-level array keys. | `@param array $array | array
 `fillLowerLevelDates` | Given an array of arrays keyed by dates, fills each of the arrays with any missing date keys and values based on the earliest start and latest end of all the arrays. | @param array[] $array | array[]

@@ -59,22 +59,31 @@ class Helpers
      * Writes an array of arrays to a CSV file.
      *
      * @param string[] $headers
-     *   The names of the table columns.
-     * @param array[]  $data
+     *   The names of the table columns. Pass an empty array if you don't want any headers (e.g. if you're appending to
+     *   an existing file.
+     * @param array[] $data
      *   Data to write. Each top-level array should contain an array the same length as the $header array.
-     * @param string   $filename
-     * @param string   $path
+     * @param string $filename
+     * @param bool $append
+     *   Whether to append to the file if it exist or overwrite from the beginning of the file.
+     * @param string $path
      */
-    public static function csv(array $headers, array $data, string $filename, $path = 'data/')
+    public static function csv(array $headers, array $data, string $filename, $append = false, $path = 'data/')
     {
-        if (count($headers) !== count(reset($data))) {
-            throw new \InvalidArgumentException(
-                'The length of the `$header` array must equal the length of each of the arrays in `$data`'
-            );
+        if ($headers && $data) {
+            if (count($headers) !== count(reset($data))) {
+                throw new \InvalidArgumentException(
+                    'The length of the `$header` array must equal the length of each of the arrays in `$data`'
+                );
+            }
         }
 
-        $fp = fopen($path . $filename, 'w');
-        fputcsv($fp, $headers);
+        $mode = ($append) ? 'a' : 'w';
+
+        $fp = fopen($path . $filename, $mode);
+        if ($headers) {
+            fputcsv($fp, $headers);
+        }
         foreach ($data as $datum) {
             fputcsv($fp, $datum);
         }
@@ -109,7 +118,9 @@ class Helpers
                 break;
             default:
                 throw new \InvalidArgumentException(
-                    'The keys must be dates in one of the following formats: `Y`, `Y-m`, or `Y-m-d`'
+                    'The keys must be dates in one of the following formats: `Y`, `Y-m`, or `Y-m-d`. `'
+                    . array_key_first($array)
+                    . '` was provided.'
                 );
         }
 
@@ -203,5 +214,35 @@ class Helpers
         $newArray = self::includeArrayKeysInArray($newArray);
 
         return $newArray;
+    }
+
+    public static function getNeighborhoods()
+    {
+        return [
+            'Allston',
+            'Back Bay',
+            'Bay Village',
+            'Beacon Hill',
+            'Brighton',
+            'Charlestown',
+            'Chinatown',
+            'Leather District',
+            'Dorchester',
+            'Downtown',
+            'East Boston',
+            'Fenway',
+            'Kenmore',
+            'Hyde Park',
+            'Jamaica Plain',
+            'Mattapan',
+            'Mission Hill',
+            'North End',
+            'Roslindale',
+            'Roxbury',
+            'South Boston',
+            'South End',
+            'West End',
+            'West Roxbury',
+        ];
     }
 }

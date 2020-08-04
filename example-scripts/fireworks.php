@@ -3,6 +3,9 @@
 
 /**
  * Example script to fetch 311 reports about fireworks and write the data to a CSV file.
+ *
+ * @see data results in this spreadsheet:
+ *   https://docs.google.com/spreadsheets/d/1PsDT169ZKQfYN3sxNZtBHLG6zsUDFD9mwjDXkheCnOI/edit#gid=0
  */
 
 require_once 'vendor/autoload.php';

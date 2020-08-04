@@ -20,8 +20,7 @@ $filename = 'reports-by-day-ALL.csv';
 
 Helpers::csv(['day', 'number of reports'], [], $filename);
 
-while($month < $end)
-{
+while ($month < $end) {
     $startTime = time();
     echo 'Starting month ' . date('F Y', $month);
     $client = new Client();
@@ -43,5 +42,3 @@ while($month < $end)
 
     echo ". Took " . (time() - $startTime) . " seconds.", PHP_EOL;
 }
-
-

@@ -78,7 +78,15 @@ class Client implements ClientInterface
      */
     public function fetchReports()
     {
-        $fetch = new Fetch(array_merge_recursive($this->filters, $this->limit, $this->offset, ['include' => implode(',', $this->includes)]), $this->numberOfRequests);
+        $fetch = new Fetch(
+            array_merge_recursive(
+                $this->filters,
+                $this->limit,
+                $this->offset,
+                ['include' => implode(',', $this->includes)]
+            ),
+            $this->numberOfRequests
+        );
         $this->reports = $fetch->fetchAll();
 
         if ($this->groupBy) {

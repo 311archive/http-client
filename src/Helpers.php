@@ -118,7 +118,9 @@ class Helpers
                 break;
             default:
                 throw new \InvalidArgumentException(
-                    'The keys must be dates in one of the following formats: `Y`, `Y-m`, or `Y-m-d`. `' . array_key_first($array) . '` was provided.'
+                    'The keys must be dates in one of the following formats: `Y`, `Y-m`, or `Y-m-d`. `'
+                    . array_key_first($array)
+                    . '` was provided.'
                 );
         }
 
@@ -214,7 +216,8 @@ class Helpers
         return $newArray;
     }
 
-    public static function getNeighborhoods() {
+    public static function getNeighborhoods()
+    {
         return [
             'Allston',
             'Back Bay',
@@ -242,5 +245,4 @@ class Helpers
             'West Roxbury',
         ];
     }
-
 }

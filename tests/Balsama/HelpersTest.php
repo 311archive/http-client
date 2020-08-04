@@ -105,8 +105,7 @@ class HelpersTest extends TestCase
         }
     }
 
-    public function testCSV() {
-
+    public function testCSV()
+    {
     }
-
 }

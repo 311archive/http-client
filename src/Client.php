@@ -9,6 +9,7 @@ class Client implements ClientInterface
     private array $filters = [];
     private array $limit = [];
     private array $offset = [];
+    private array $includes = [];
     private int $numberOfRequests = 0;
 
     private array $reports = [];
@@ -77,7 +78,15 @@ class Client implements ClientInterface
      */
     public function fetchReports()
     {
-        $fetch = new Fetch(array_merge_recursive($this->filters, $this->limit, $this->offset), $this->numberOfRequests);
+        $fetch = new Fetch(
+            array_merge_recursive(
+                $this->filters,
+                $this->limit,
+                $this->offset,
+                ['include' => implode(',', $this->includes)]
+            ),
+            $this->numberOfRequests
+        );
         $this->reports = $fetch->fetchAll();
 
         if ($this->groupBy) {
@@ -127,7 +136,12 @@ class Client implements ClientInterface
      */
     public function filterCategory($category)
     {
-        // TODO: Implement filterCategory() method.
+        $this->includes[] = 'field_service_name';
+        $this->filters['filter']['fieldServiceName'] = [
+            'path' => 'field_service_name.name',
+            'operator' => '=',
+            'value' => $category,
+        ];
     }
 
     /**
@@ -135,7 +149,12 @@ class Client implements ClientInterface
      */
     public function filterNeighborhood(string $neighborhood)
     {
-        // TODO: Implement filterNeighborhood() method.
+        $this->includes[] = 'field_neighborhood';
+        $this->filters['filter']['fieldNeighborhood'] = [
+            'path' => 'field_neighborhood.name',
+            'operator' => '=',
+            'value' => $neighborhood,
+        ];
     }
 
     /**

@@ -4,6 +4,9 @@
 /**
  * Example script to count the number of reports per day that include the terms mask, social, or distance, and write the
  * results to a CSV file.
+ *
+ * @see data in this spreadsheet:
+ *   https://docs.google.com/spreadsheets/d/1r-HHo1RZSaw3h4HckbmNWemAPolnX1lyFibUWd6vnq4/edit#gid=0
  */
 
 require_once 'vendor/autoload.php';

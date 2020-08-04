@@ -3,6 +3,10 @@
 
 /**
  * Example script to count the number of 311 submission per day.
+ * This takes a looooong time to run.
+ *
+ * @see the data in this spreadsheet:
+ *   https://docs.google.com/spreadsheets/d/1jPRc6Z4FfuQ20fy0SDHYZdDznPORzIerMRMCfni4cMg/edit?usp=sharing
  */
 
 require_once 'vendor/autoload.php';

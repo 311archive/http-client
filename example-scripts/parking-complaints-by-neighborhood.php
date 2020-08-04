@@ -5,8 +5,8 @@
  * Example script to count the number of reports per neighborhood that complain about parking and write the data to a
  * CSV file.
  *
- * @See the collected data and visualizations here;
- * https://docs.google.com/spreadsheets/d/1QC-FOvrRgGRkb-_wrWM_s8x3zTKG_q1eR0M2aZTCACk/edit#gid=1770142492
+ * @see collected data and visualizations here;
+ *   https://docs.google.com/spreadsheets/d/1QC-FOvrRgGRkb-_wrWM_s8x3zTKG_q1eR0M2aZTCACk/edit#gid=1770142492
  */
 
 require_once 'vendor/autoload.php';

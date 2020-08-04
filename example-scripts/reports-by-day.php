@@ -10,7 +10,7 @@ require_once 'vendor/autoload.php';
 use Balsama\Client;
 use Balsama\Helpers;
 
-$start = $month = strtotime('2018-04-01');
+$start = $month = strtotime('2015-01-01');
 $end = strtotime('2020-08-01');
 $filename = 'reports-by-day-ALL.csv';
 

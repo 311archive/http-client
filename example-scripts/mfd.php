@@ -14,7 +14,6 @@ $csv = file_get_contents('./data/rbd.csv');
 $dates = array_map("str_getcsv", explode("\n", $csv));
 array_shift($dates);
 foreach ($dates as $date) {
-
     $newDates[date('Y-m', strtotime($date[0]))][] = $date[1];
 }
 

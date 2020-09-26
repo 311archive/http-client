@@ -17,7 +17,7 @@ use Balsama\Helpers;
 $foo = 21;
 $client = new Client();
 $category = 'Rodent Sighting';
-$filename = str_replace(' ', '-', $category . '-' . date('c', time())). '.csv';
+$filename = str_replace(' ', '-', $category . '-' . date('c', time())) . '.csv';
 
 $client->filterCategory($category);
 $client->groupResultsByMonth();

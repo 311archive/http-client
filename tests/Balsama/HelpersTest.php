@@ -107,17 +107,33 @@ class HelpersTest extends TestCase
 
     public function testImageTtfTextJustified()
     {
-        $inputFile = __DIR__ . '/fixtures/test.jpg';
-        $outputFile = __DIR__ . '/fixtures/testoutput.jpg';
+        $inputFilePath = __DIR__ . '/fixtures/test.jpg';
+        $outputFilePath = __DIR__ . '/fixtures/testoutput.jpg';
+        $controlFilePath = __DIR__ . '/fixtures/testcontrol.jpg';
         $fontFile = __DIR__ . '/fixtures/fonts/SFCompact.ttf';
 
-        // Cleanup and assert that output file does not exist.
-        if (file_exists($outputFile)) {
-            unlink($outputFile);
+        // Cleanup and assert that output and control files do not exist.
+        if (file_exists($outputFilePath)) {
+            unlink($outputFilePath);
         }
+        $this->assertFileNotExists($outputFilePath);
+        if (file_exists($controlFilePath)) {
+            unlink($controlFilePath);
+        }
+        $this->assertFileNotExists($controlFilePath);
 
-        $originalImage = imagecreatefromjpeg($inputFile);
-        $testImage = $originalImage;
+        $originalImage = imagecreatefromjpeg($inputFilePath);
+        $testImage = imagecreatefromjpeg($inputFilePath);
+
+        imagejpeg($originalImage, $inputFilePath, 100);
+        imagejpeg($originalImage, $controlFilePath, 100);
+
+        $originalImageFile = file_get_contents($inputFilePath);
+        $controlImageFile = file_get_contents($controlFilePath);
+
+        // Control.
+        $this->assertEquals($originalImageFile, $controlImageFile);
+
         Helpers::imageTtfTextJustified(
             $testImage,
             'How quickly deft jumping zebras vex.',
@@ -129,17 +145,20 @@ class HelpersTest extends TestCase
             $fontFile
         );
 
-        // Save and re-read the test image.
-        imagejpeg($testImage, $outputFile);
-        $testImage = imagecreatefromjpeg($outputFile);
+        imagejpeg($testImage, $outputFilePath);
 
         // Confirms that the the image was processed and saved.
-        $this->assertFileExists($outputFile);
+        $this->assertFileExists($outputFilePath);
+
+        $editedImageFile = file_get_contents($outputFilePath);
+
         // Confirms that the saved image is different from the original.
-        $this->assertNotEquals($originalImage, $testImage);
+        $this->assertNotEquals($originalImageFile, $editedImageFile);
+        // Control.
+        $this->assertEquals($originalImageFile, $controlImageFile);
 
         // Cleanup and assert that output file does not exist again.
-        unlink($outputFile);
-        $this->assertFileNotExists($outputFile);
+        unlink($outputFilePath);
+        $this->assertFileNotExists($outputFilePath);
     }
 }

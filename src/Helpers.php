@@ -287,7 +287,7 @@ class Helpers
      * @throws \Exception
      */
     public static function imageTtfTextJustified(
-        &$image,
+        $image,
         $text,
         $left = 20,
         $top = 50,
@@ -392,7 +392,7 @@ class Helpers
      * @return resource
      */
     private static function imageTtfStrokeText(
-        &$image,
+        $image,
         $text,
         $size = 25,
         $strokeSize = 2,

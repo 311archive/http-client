@@ -105,7 +105,8 @@ class HelpersTest extends TestCase
         }
     }
 
-    public function testImageTtfTextJustified() {
+    public function testImageTtfTextJustified()
+    {
         $inputFile = __DIR__ . '/fixtures/test.jpg';
         $outputFile = __DIR__ . '/fixtures/testoutput.jpg';
 
@@ -131,5 +132,4 @@ class HelpersTest extends TestCase
         unlink($outputFile);
         $this->assertFileNotExists($outputFile);
     }
-
 }

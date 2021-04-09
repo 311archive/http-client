@@ -300,8 +300,7 @@ class Helpers
         $lineSpacing = 1,
         $strokeSize = 2,
         $angle = 0
-    )
-    {
+    ) {
         if (!$textColor) {
             $textColor = imagecolorallocate($image, 255, 255, 255);
         }
@@ -333,14 +332,16 @@ class Helpers
             $dimensions = imagettfbbox($size, $angle, $fontFile, $word);
             $line_width = $dimensions[2] - $dimensions[0];
             $line_height = $dimensions[1] - $dimensions[7];
-            if ($line_height > $largest_line_height) $largest_line_height=$line_height;
-            if (($lineWidth[$lineno]+$line_width+$minSpacing) > $maxWidth) {
+            if ($line_height > $largest_line_height) {
+                $largest_line_height = $line_height;
+            }
+            if (($lineWidth[$lineno] + $line_width + $minSpacing) > $maxWidth) {
                 $lineno++;
                 $lineWidth[$lineno] = 0;
                 $lineWordCount[$lineno] = 0;
                 $wln = 0;
             }
-            $lineWidth[$lineno] += $line_width+$minSpacing;
+            $lineWidth[$lineno] += $line_width + $minSpacing;
             $wordWidth[$lineno][$wln] = $line_width;
             $wordText[$lineno][$wln] = $word;
             $lineWordCount[$lineno]++;
@@ -350,7 +351,8 @@ class Helpers
             $spacing = $minSpacing;
 
             $x = 0;
-            for ($w = 0;
+            for (
+                $w = 0;
                  $w < $lineWordCount[$ln];
                  $w++
             ) {
@@ -401,7 +403,7 @@ class Helpers
         $fontFile = null,
         $angle = 0
     ) {
-        for ($c1 = ($xPosition-abs($strokeSize)); $c1 <= ($xPosition+abs($strokeSize)); $c1++) {
+        for ($c1 = ($xPosition - abs($strokeSize)); $c1 <= ($xPosition + abs($strokeSize)); $c1++) {
             for ($c2 = ($yPosition - abs($strokeSize)); $c2 <= ($yPosition + abs($strokeSize)); $c2++) {
                 imagettftext($image, $size, $angle, $c1, $c2, $strokeColor, $fontFile, $text);
             }

@@ -105,7 +105,31 @@ class HelpersTest extends TestCase
         }
     }
 
-    public function testCSV()
-    {
+    public function testImageTtfTextJustified() {
+        $inputFile = __DIR__ . '/fixtures/test.jpg';
+        $outputFile = __DIR__ . '/fixtures/testoutput.jpg';
+
+        // Cleanup and assert that output file does not exist.
+        if (file_exists($outputFile)) {
+            unlink($outputFile);
+        }
+        
+        $originalImage = imagecreatefromjpeg($inputFile);
+        $testImage = $originalImage;
+        Helpers::imageTtfTextJustified($testImage, 'How quickly deft jumping zebras vex.');
+
+        // Save and re-read the test image.
+        imagejpeg($testImage, $outputFile);
+        $testImage = imagecreatefromjpeg($outputFile);
+
+        // Confirms that the the image was processed and saved.
+        $this->assertFileExists($outputFile);
+        // Confirms that the saved image is different from the original.
+        $this->assertNotEquals($originalImage, $testImage);
+
+        // Cleanup and assert that output file does not exist again.
+        unlink($outputFile);
+        $this->assertFileNotExists($outputFile);
     }
+
 }

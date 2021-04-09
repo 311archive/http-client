@@ -113,7 +113,7 @@ class HelpersTest extends TestCase
         if (file_exists($outputFile)) {
             unlink($outputFile);
         }
-        
+
         $originalImage = imagecreatefromjpeg($inputFile);
         $testImage = $originalImage;
         Helpers::imageTtfTextJustified($testImage, 'How quickly deft jumping zebras vex.');

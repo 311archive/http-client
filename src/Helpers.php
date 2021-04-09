@@ -2,8 +2,6 @@
 
 namespace Balsama;
 
-use http\Exception\InvalidArgumentException;
-
 class Helpers
 {
 
@@ -285,6 +283,8 @@ class Helpers
      * @param int $angle
      *
      * @return resource
+     *
+     * @throws \Exception
      */
     public static function imageTtfTextJustified(
         &$image,
@@ -310,7 +310,7 @@ class Helpers
         if (!$fontFile) {
             // Assumes macOS with SFCompact installed.
             if (!file_exists('/System/Library/Fonts/SFCompact.ttf')) {
-                throw new InvalidArgumentException('You must provide a path to a valid TTF font file.');
+                throw new \Exception('You must provide a path to a valid TTF font file.');
             }
             $fontFile = '/System/Library/Fonts/SFCompact.ttf';
         }

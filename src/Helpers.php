@@ -245,4 +245,169 @@ class Helpers
             'West Roxbury',
         ];
     }
+
+    /**
+     * Download all images in the provided $reports into the provided folder.
+     *
+     * @param array[] $reports
+     * @param string $path
+     * @param string $prefix
+     * @param int $i
+     */
+    public static function downloadImages($reports, $path = 'data/photos/', $prefix = 'photo-', $i = 1)
+    {
+        foreach ($reports as $report) {
+            if (isset($report['attributes']['field_media_url'])) {
+                $raw = file_get_contents($report['attributes']['field_media_url']);
+                file_put_contents($path . $prefix . $i . '.jpg', $raw);
+                $i++;
+            }
+        }
+    }
+
+    /**
+     * Justifies and writes the provided text to the provided image resource.
+     *
+     * @param resource $image
+     * @param string $text
+     * @param int $left
+     * @param int $top
+     * @param int $size
+     * @param null $textColor
+     * @param null $strokeColor
+     * @param null $fontFile
+     * @param int $maxWidth
+     * @param int $minSpacing
+     * @param int $lineSpacing
+     * @param int $strokeSize
+     * @param int $angle
+     *
+     * @return resource
+     *
+     * @throws \Exception
+     */
+    public static function imageTtfTextJustified(
+        $image,
+        $text,
+        $left = 20,
+        $top = 50,
+        $size = 25,
+        $textColor = null,
+        $strokeColor = null,
+        $fontFile = null,
+        $maxWidth = null,
+        $minSpacing = 3,
+        $lineSpacing = 1,
+        $strokeSize = 2,
+        $angle = 0
+    ) {
+        if (!$textColor) {
+            $textColor = imagecolorallocate($image, 255, 255, 255);
+        }
+        if (!$strokeColor) {
+            $strokeColor = imagecolorallocate($image, 0, 0, 0);
+        }
+        if (!$fontFile) {
+            // Assumes macOS with SFCompact installed.
+            if (!file_exists('/System/Library/Fonts/SFCompact.ttf')) {
+                throw new \Exception('You must provide a path to a valid TTF font file.');
+            }
+            $fontFile = '/System/Library/Fonts/SFCompact.ttf';
+        }
+        if (!$maxWidth) {
+            $maxWidth = (imagesx($image) - (50 + $left));
+        }
+
+        $wordWidth = [];
+        $lineWidth = [];
+        $lineWordCount = [];
+        $largest_line_height = 0;
+        $lineno = 0;
+        $words = explode(' ', $text);
+        $wln = 0;
+        $lineWidth[$lineno] = 0;
+        $lineWordCount[$lineno] = 0;
+        $wordText = [];
+        foreach ($words as $word) {
+            $dimensions = imagettfbbox($size, $angle, $fontFile, $word);
+            $line_width = $dimensions[2] - $dimensions[0];
+            $line_height = $dimensions[1] - $dimensions[7];
+            if ($line_height > $largest_line_height) {
+                $largest_line_height = $line_height;
+            }
+            if (($lineWidth[$lineno] + $line_width + $minSpacing) > $maxWidth) {
+                $lineno++;
+                $lineWidth[$lineno] = 0;
+                $lineWordCount[$lineno] = 0;
+                $wln = 0;
+            }
+            $lineWidth[$lineno] += $line_width + $minSpacing;
+            $wordWidth[$lineno][$wln] = $line_width;
+            $wordText[$lineno][$wln] = $word;
+            $lineWordCount[$lineno]++;
+            $wln++;
+        }
+        for ($ln = 0; $ln <= $lineno; $ln++) {
+            $spacing = $minSpacing;
+
+            $x = 0;
+            for (
+                $w = 0;
+                 $w < $lineWordCount[$ln];
+                 $w++
+            ) {
+                $single_word_text = $wordText[$ln][$w];
+                self::imagettfstroketext(
+                    $image,
+                    $single_word_text,
+                    $size,
+                    $strokeSize,
+                    $left + intval($x),
+                    $top + $largest_line_height + ($largest_line_height * $ln * $lineSpacing),
+                    $textColor,
+                    $strokeColor,
+                    $fontFile,
+                    $angle
+                );
+                $x += $wordWidth[$ln][$w] + $spacing + $minSpacing;
+            }
+        }
+        return $image;
+    }
+
+    /**
+     * Writes the provided test to the provided image resource.
+     *
+     * @param resource $image
+     * @param string $text
+     * @param int $size
+     * @param int $strokeSize
+     * @param int $xPosition
+     * @param int $yPosition
+     * @param null $textColor
+     * @param null $strokeColor
+     * @param null $fontFile
+     * @param int $angle
+     *
+     * @return resource
+     */
+    private static function imageTtfStrokeText(
+        $image,
+        $text,
+        $size = 25,
+        $strokeSize = 2,
+        $xPosition = 20,
+        $yPosition = 50,
+        $textColor = null,
+        $strokeColor = null,
+        $fontFile = null,
+        $angle = 0
+    ) {
+        for ($c1 = ($xPosition - abs($strokeSize)); $c1 <= ($xPosition + abs($strokeSize)); $c1++) {
+            for ($c2 = ($yPosition - abs($strokeSize)); $c2 <= ($yPosition + abs($strokeSize)); $c2++) {
+                imagettftext($image, $size, $angle, $c1, $c2, $strokeColor, $fontFile, $text);
+            }
+        }
+        return imagettftext($image, $size, $angle, $xPosition, $yPosition, $textColor, $fontFile, $text);
+    }
 }

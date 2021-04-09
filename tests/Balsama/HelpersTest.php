@@ -118,7 +118,16 @@ class HelpersTest extends TestCase
 
         $originalImage = imagecreatefromjpeg($inputFile);
         $testImage = $originalImage;
-        Helpers::imageTtfTextJustified($testImage, 'How quickly deft jumping zebras vex.', 20, 50, 25, null, null, $fontFile);
+        Helpers::imageTtfTextJustified(
+            $testImage,
+            'How quickly deft jumping zebras vex.',
+            20,
+            50,
+            25,
+            null,
+            null,
+            $fontFile
+        );
 
         // Save and re-read the test image.
         imagejpeg($testImage, $outputFile);

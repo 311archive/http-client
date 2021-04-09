@@ -109,6 +109,7 @@ class HelpersTest extends TestCase
     {
         $inputFile = __DIR__ . '/fixtures/test.jpg';
         $outputFile = __DIR__ . '/fixtures/testoutput.jpg';
+        $fontFile = __DIR__ . '/fixtures/fonts/SFCompact.ttf';
 
         // Cleanup and assert that output file does not exist.
         if (file_exists($outputFile)) {
@@ -117,7 +118,7 @@ class HelpersTest extends TestCase
 
         $originalImage = imagecreatefromjpeg($inputFile);
         $testImage = $originalImage;
-        Helpers::imageTtfTextJustified($testImage, 'How quickly deft jumping zebras vex.');
+        Helpers::imageTtfTextJustified($testImage, 'How quickly deft jumping zebras vex.', 20, 50, 25, null, null, $fontFile);
 
         // Save and re-read the test image.
         imagejpeg($testImage, $outputFile);

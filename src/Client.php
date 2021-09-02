@@ -206,6 +206,23 @@ class Client implements ClientInterface
     }
 
     /**
+     * @inheritDoc
+     */
+    public function filterHasPhoto(bool $hasPhoto)
+    {
+        if ($hasPhoto) {
+            $this->filters['filter']['hasPhoto'] = [
+                'condition' => [
+                    'path' => 'field_media_url',
+                    'operator' => 'CONTAINS',
+                    'value' => '311.boston.gov',
+                ]
+
+            ];
+        }
+    }
+
+    /**
      * Parses a date string into a timestamp.
      *
      * @param  $date

@@ -118,6 +118,12 @@ interface ClientInterface
     public function filterStatusOpen($status);
 
     /**
+     * @param bool $hasPhoto
+     * @return $this
+     */
+    public function filterHasPhoto(bool $hasPhoto);
+
+    /**
      * Groups the results into arrays keyed by day on which they were opened.
      *
      * @return $this
